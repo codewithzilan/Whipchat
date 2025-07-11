@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Box, Grid } from '@mui/material'
+import { Grid } from '@mui/material'
 import TextField from '@mui/material/TextField';
 import { alpha, styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
@@ -10,8 +10,6 @@ import { FaRegEye } from 'react-icons/fa';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { ToastContainer, toast } from 'react-toastify';
 import { Bars } from 'react-loader-spinner';
-
-
 
 
 const CssTextField = styled(TextField)({
@@ -62,7 +60,6 @@ const Registration = () => {
   let [nameerror,setNameError]=useState("")
   let [passworderror,setPasswordError]=useState("")
 
-
   let handleEmail= (e)=>{
     setEmail(e.target.value);
     setEmailError("");
@@ -80,7 +77,7 @@ const Registration = () => {
     if(!email){
       setEmailError("*Email is required");
     }else if(!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)){
-        setEmailError("*Your email is incorrect")
+      setEmailError("*Your email is incorrect")
     }
     
     if(!name){
@@ -111,12 +108,8 @@ const Registration = () => {
         .catch((error) => {
          const errorCode = error.code;
          console.log(errorCode);
-         
    
         });
-      
-      
-      
     }
   }
 
@@ -129,7 +122,7 @@ const Registration = () => {
                    <p>Free register and you can enjoy it</p>
                    <ToastContainer
                     position="top-center"
-                    autoClose={5000}
+                    autoClose={3000}
                     hideProgressBar={false}
                     newestOnTop={false}
                     closeOnClick={false}
@@ -144,7 +137,6 @@ const Registration = () => {
                    {
                     emailerror && <p className='error-message'>{emailerror}</p>
                    }
-
 
                    <CssTextField value={name} onChange={handleName} id="outlined-basic" label="Full Name" variant="outlined" />
                    {
@@ -187,7 +179,6 @@ const Registration = () => {
                    <p>Already  have an account ? <Link to='/login' style={{textDecoration:'none'}}><span>Sign In</span></Link></p>
                </div>
             </div>
-           
          
         </Grid>
         <Grid size={6}>

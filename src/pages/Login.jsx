@@ -5,7 +5,7 @@ import { alpha, styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import LoginImage from '../assets/login.png'
 import GoogleLogo from '../assets/googlelogo.png'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaRegEye } from 'react-icons/fa';
 import { RiEyeCloseLine } from 'react-icons/ri';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
@@ -48,6 +48,8 @@ const MuiButton = styled(Button)({
 
 const Login = () => {
   const auth = getAuth();
+
+   let navigate=useNavigate()
   
   let [showpass,setShowPass]=useState(false)
   let [loader,setLoader]=useState(false)
@@ -75,7 +77,6 @@ const Login = () => {
         setEmailError("*Your email is incorrect")
     }
     
-    
     if(!password){
         setPasswordError("*Password is required")
     }else if(!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/.test(password)){
@@ -83,29 +84,26 @@ const Login = () => {
     }
 
     if(email && /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email) &&
-        password && /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/.test(password)){
-            setLoader(true)
+       password && /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/.test(password)){
+              setLoader(true)
           signInWithEmailAndPassword(auth, email, password)
              .then((userCredential) => {
               setEmail("")
-              setName("")
               setPassword("")
               toast.success('Login Successful');
               setLoader(false)
-              // setTimeout(()=>{
-              //   navigate('/login')
-              // },3000)
+              setTimeout(()=>{
+              navigate('/homepage')
+              },3000)
     
             })
             .catch((error) => {
              const errorCode = error.code;
-             console.log(errorCode);
+             if(errorCode.includes("auth/invalid-credential")){
+              toast.error("Email or Passsword doesn't match");
+             }
              
-       
             });
-          
-          
-          
         }
   }
 
@@ -117,7 +115,7 @@ const Login = () => {
                    <h2>Login to your account!</h2>
                    <ToastContainer
                     position="top-center"
-                    autoClose={5000}
+                    autoClose={3000}
                     hideProgressBar={false}
                     newestOnTop={false}
                     closeOnClick={false}
@@ -127,6 +125,20 @@ const Login = () => {
                     pauseOnHover
                     theme="light"
                     />
+
+                    <ToastContainer
+                    position="top-center"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick={false}
+                    rtl={false}
+                    pauseOnFocusLoss={false}
+                    draggable
+                    pauseOnHover={false}
+                    theme="colored"
+                    />
+
                    <div className='logo-box'>
                     <img src={GoogleLogo} alt="" />
                     <p>Login with Google</p>
@@ -135,7 +147,6 @@ const Login = () => {
                    {
                     emailerror && <p className='error-message'>{emailerror}</p>
                    }
-
 
                   <div className='pass-icon-box'>
                         <CssTextField onChange={handlePassword} id="outlined-basic" label="Password" variant="outlined" type={showpass?'text':'password'} />
@@ -174,7 +185,6 @@ const Login = () => {
                    <p>Don't have an account ? <Link to='/' style={{textDecoration:'none'}}><span>Sign Up</span></Link></p>
                </div>
             </div>
-           
          
         </Grid>
         <Grid size={6}>
