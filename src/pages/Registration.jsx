@@ -92,11 +92,11 @@ const Registration = () => {
 
     if (email && /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email) && name &&
       password && /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/.test(password)) {
-      setLoader(true)
+        setLoader(true)
       createUserWithEmailAndPassword(auth, email, password)
         .then((user) => {
           if (user.user.emailVerified) {
-            console.log('');
+           console.log('');
           } else {
             toast.error("Check Your Gmail & Verify Email")
           }
