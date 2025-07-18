@@ -239,7 +239,7 @@ const Login = () => {
                   }
 
                   <div style={{ display: 'inline-block' }}>
-                    <p>Don't have an account ? <Link to='/' style={{ textDecoration: 'none' }}><span>Sign Up</span></Link></p>
+                    <p><Link to='/' style={{ textDecoration: 'none' }}>Don't have an account ?</Link> <Link to='/' style={{ textDecoration: 'none' }}><span>Sign Up</span></Link></p>
                   </div>
                   <h4 onClick={handleForgetPassword} className='forget-password'>Forget Password</h4>
 

@@ -184,7 +184,7 @@ const Registration = () => {
                 :
                 <MuiButton onClick={handleSignUp} variant="contained">Sign up</MuiButton>
             }
-            <p>Already  have an account ? <Link to='/login' style={{ textDecoration: 'none' }}><span>Sign In</span></Link></p>
+            <p><Link to='/login' style={{ textDecoration: 'none' }}>Already  have an account ?</Link> <Link to='/login' style={{ textDecoration: 'none' }}><span>Sign In</span></Link></p>
           </div>
         </div>
 
