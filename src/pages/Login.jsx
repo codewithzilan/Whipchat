@@ -122,7 +122,7 @@ const Login = () => {
       .then((result) => {
         toast.success('Login Successful');
         setTimeout(() => {
-          navigate('/homepage')
+          navigate('/pages/home')
         }, 3000)
       })
 
